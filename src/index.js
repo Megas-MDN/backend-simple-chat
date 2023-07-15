@@ -17,9 +17,11 @@ const io = new Server(server, {
 app.get('/', (_res, req) => req.send({ message: `Server on ${port} Port` }));
 io.on('connection', (socket) => {
   socket.on('geral', (msgs) => {
+    console.log('Geral', msgs);
     socket.broadcast.emit('geral', { messages: msgs.messages });
   });
   socket.on('individual', ({ id, messages }) => {
+    console.log(`individual-${id}`, { messages });
     socket.broadcast.emit(`individual-${id}`, { messages });
   });
 });
